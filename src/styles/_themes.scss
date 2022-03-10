@@ -1,0 +1,97 @@
+$purple-primary: #5744AB;
+$purple-dark: #3D364A;
+$gray-primary: #BFB9C2;
+$gray-dark: #5E576E;
+$white-primary: #FAF9FD;
+$black-primary: #0E0A19;
+$gold-primary: #BBA96E;
+
+// Text Color
+
+.text-purple-primary{
+    color: $purple-primary;
+}
+
+.text-purple-dark{
+    color: $purple-dark;
+}
+
+.text-gray-primary{
+    color: $gray-primary;
+}
+
+.text-gray-dark{
+    color: $gray-dark;
+}
+
+.text-white-primary{
+    color: $white-primary;
+}
+
+.text-black-primary{
+    color: $black-primary;
+}
+
+.text-gold-primary{
+    color: $gold-primary;
+}
+
+// Border
+
+.border-purple-primary{
+    border: 1px solid $purple-primary;
+}
+
+.border-purple-dark{
+    border: 1px solid $purple-dark;
+}
+
+.border-gray-primary{
+    border: 1px solid $gray-primary;
+}
+
+.border-gray-dark{
+    border: 1px solid $gray-dark;
+}
+
+.border-white-primary{
+    border: 1px solid $white-primary;
+}
+
+.border-black-primary{
+    border: 1px solid $black-primary;
+}
+
+.border-gold-primary{
+    border: 1px solid $gold-primary;
+}
+
+// Background
+
+.bg-purple-primary{
+    background-color: $purple-primary;
+}
+
+.bg-purple-dark{
+    background-color: $purple-dark;
+}
+
+.bg-gray-primary{
+    background-color: $gray-primary;
+}
+
+.bg-gray-dark{
+    background-color: $gray-dark;
+}
+
+.bg-white-primary{
+    background-color: $white-primary;
+}
+
+.bg-black-primary{
+    background-color: $black-primary;
+}
+
+.bg-gold-primary{
+    background-color: $gold-primary;
+}

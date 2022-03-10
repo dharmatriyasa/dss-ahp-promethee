@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'styles';
+
+@font-face {
+  font-family: 'Nunito';
+  font-display: swap;
+  src: url('../public/fonts/Nunito-Reguler.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-display: swap;
+  src: url('../public/fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.nunito{
+  font-family: 'Nunito';
+}
+
+.roboto{
+  font-family: 'Roboto';
+}
