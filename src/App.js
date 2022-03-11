@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.scss';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       {/* <header className="App-header"> */}
         <Navbar />
         <Hero />
+        <Footer />
         {/* <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
