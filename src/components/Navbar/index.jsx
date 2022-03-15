@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
     
     return (
@@ -10,8 +12,13 @@ const Navbar = () => {
                 <li className="mx-4">About</li>
                 <li className="mx-4">Contact</li>
             </ul>
-            <div className="px-3 py-1.5 border border-slate-700 hover:bg-slate-700 hover:text-white transition duration-150 ease-in-out">
-                Login/Signup
+            <div>
+            <Link to='/login'>
+                <div className="px-3 py-1.5 border border-slate-700 hover:bg-slate-700 hover:text-white transition duration-150 ease-in-out">
+                    Login/Signup
+                </div>
+            </Link>
+
             </div>
         </nav>
     );
