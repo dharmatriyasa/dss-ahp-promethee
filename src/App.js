@@ -3,6 +3,7 @@ import './App.scss';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import KonfigurasiKriteria from './pages/KonfigurasiKriteria';
+import PerhitunganAHP from './pages/PerhitunganAHP';
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
@@ -20,6 +21,10 @@ function App() {
         </Route>
         <Route path='/konfigurasi-kriteria' element={
           <KonfigurasiKriteria />
+        }>
+        </Route>
+        <Route path='/perhitungan-kriteria-ahp' element={
+          <PerhitunganAHP />
         }>
         </Route>
       </Routes>
