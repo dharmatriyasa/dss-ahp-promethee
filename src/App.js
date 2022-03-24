@@ -4,6 +4,9 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import KonfigurasiKriteria from './pages/KonfigurasiKriteria';
 import PerhitunganAHP from './pages/PerhitunganAHP';
+import KonfigurasiAlternatif from './pages/KonfigurasiAlternatif';
+import PerhitunganPromethee from './pages/PerhitunganPromethee';
+import HasilRekomendasi from './pages/HasilRekomendasi';
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
@@ -25,6 +28,18 @@ function App() {
         </Route>
         <Route path='/perhitungan-kriteria-ahp' element={
           <PerhitunganAHP />
+        }>
+        </Route>
+        <Route path='/konfigurasi-alternatif' element={
+          <KonfigurasiAlternatif />
+        }>
+        </Route>
+        <Route path='/perhitungan-promethee' element={
+          <PerhitunganPromethee />
+        }>
+        </Route>
+        <Route path='/hasil-rekomendasi' element={
+          <HasilRekomendasi />
         }>
         </Route>
       </Routes>
