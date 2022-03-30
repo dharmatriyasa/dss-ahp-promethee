@@ -1,16 +1,48 @@
 import SidebarItem from "../SidebarItem";
 import {RiAccountCircleLine} from 'react-icons/ri';
+import { Logout } from "../../services/auth";
+import { useNavigate } from "react-router-dom";
+
 
 const Sidebar = () => {
 
+    const navigate = useNavigate();
+
     const listSidebarItems = [
-        'Konfigurasi Kriteria',
-        'Perhitungan Kriteria',
-        'Konfigurasi Alternatif',
-        'Perhitungan Alternatif',
-        'Hasil Rekomendasi',
-        'Riwayat',
+        {
+            title: 'Konfigurasi Kriteria',
+            url: '/konfigurasi-kriteria'
+        },
+        {
+            title: 'Perhitungan Kriteria',
+            url: '/perhitungan-kriteria-ahp'
+        },
+        {
+            title: 'Konfigurasi Alternatif',
+            url: '/konfigurasi-alternatif'
+        },
+        {
+            title: 'Perhitungan Alternatif',
+            url: '/perhitungan-promethee'
+        },
+        {
+            title: 'Hasil Rekomendasi',
+            url: '/hasil-rekomendasi'
+        },
+        {
+            title: 'Riwayat',
+            url: '/riwayat'
+        },
     ]
+
+    const onLogoutClick = () => {
+        Logout().then(() => {
+            navigate('/', {
+                replace: true,
+            })
+        })
+        .catch(console.log);
+    }
 
     return (
         <div className="flex flex-col bg-purple-500 h-screen px-6 py-3 w-60">
@@ -31,20 +63,28 @@ const Sidebar = () => {
                     <div className="border-t-2 border-t-white"></div>
                 </div>
                 <div className="flex flex-col">
+                    <ul>
                     {listSidebarItems.map((listSidebarItem, index) => {
                         return(
                             <SidebarItem 
-                                title={listSidebarItem}
+                                title={listSidebarItem.title}
+                                url={listSidebarItem.url}
                                 key={index} 
                             />
                         );
                     })}
+                    </ul>
                 </div>
             </div>
             <div className="mt-40">
+                <ul>
                 <SidebarItem 
                     title={`Logout`}
+                    url={`/logout`}
+                    onClickFunction={onLogoutClick}
                 />
+
+                </ul>
             </div>
         </div>
     );

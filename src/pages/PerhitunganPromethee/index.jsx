@@ -1,6 +1,8 @@
 import { useState } from "react";
+import Authorize from "../../components/Authorize";
 import BoxNetflow from "../../components/BoxNetflow";
 import BoxPreferensi from "../../components/BoxPreferensi";
+import NextButton from "../../components/NextButton";
 import MainLayout from "../../layouts/Main";
 import { 
     getAllPreferensiValue,
@@ -26,6 +28,7 @@ const PerhitunganPromethee = () => {
     }
 
     return (
+        <Authorize>
         <MainLayout>
             <div className="flex flex-col px-10 py-8 h-full">
                 <div className="flex flex-row">
@@ -83,7 +86,14 @@ const PerhitunganPromethee = () => {
                 </div>
                 )}
             </div>
+            <div className="flex justify-end mr-44 mb-8">
+                <NextButton 
+                    title={`Next`}
+                    url={`/hasil-rekomendasi`}
+                />
+            </div>
         </MainLayout>
+        </Authorize>
     );
 }
  

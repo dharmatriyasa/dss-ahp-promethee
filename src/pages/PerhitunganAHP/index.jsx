@@ -1,6 +1,8 @@
 import MainLayout from "../../layouts/Main";
 import MatrixCard from "../../components/MatrixCard";
 import { ahpvalue } from "../../data/ahpvalue";
+import NextButton from "../../components/NextButton";
+import Authorize from "../../components/Authorize";
 
 
 const PerhitunganAHP = () => {
@@ -24,6 +26,7 @@ const PerhitunganAHP = () => {
         },
     ];
     return (
+        <Authorize>
         <MainLayout>
             <div className="flex flex-col px-10 py-8 h-full">
                 <div className="flex flex-row mx-4 w-6/12">
@@ -89,7 +92,14 @@ const PerhitunganAHP = () => {
                     </div>
                 </div>
             </div>
+            <div className="flex justify-end mr-44 mb-8">
+                <NextButton 
+                    title={`Next`}
+                    url={`/konfigurasi-alternatif`}
+                />
+            </div>
         </MainLayout>
+        </Authorize>
     );
 }
  

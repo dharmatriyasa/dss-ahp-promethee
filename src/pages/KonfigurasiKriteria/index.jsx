@@ -1,6 +1,8 @@
 import MainLayout from "../../layouts/Main";
 import React, { useEffect, useRef, useState } from "react";
 import CardConfig from "../../components/CardConfig";
+import Authorize from "../../components/Authorize";
+import NextButton from "../../components/NextButton";
 
 const KonfigurasiKriteria = () => {
 
@@ -49,6 +51,7 @@ const KonfigurasiKriteria = () => {
     
 
     return (
+        <Authorize>
         <MainLayout>
             <div className="flex flex-row px-10 py-8 h-full">
                 <div className="flex flex-col mx-4 w-6/12">
@@ -290,7 +293,14 @@ const KonfigurasiKriteria = () => {
                     </div>
                 </div>
             </div>
+            <div className="flex justify-end mr-44 mb-8">
+                <NextButton 
+                    title={`Next`}
+                    url={`/perhitungan-kriteria-ahp`}
+                />
+            </div>
         </MainLayout>
+        </Authorize>
     );
 }
  

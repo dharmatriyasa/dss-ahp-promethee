@@ -7,11 +7,17 @@ import PerhitunganAHP from './pages/PerhitunganAHP';
 import KonfigurasiAlternatif from './pages/KonfigurasiAlternatif';
 import PerhitunganPromethee from './pages/PerhitunganPromethee';
 import HasilRekomendasi from './pages/HasilRekomendasi';
+import AuthContext from './context/AuthContext';
+import useAuth from './hooks/useAuth';
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 function App() {
+
+  const user = useAuth();
+
   return (
+    <AuthContext.Provider value={user}>
     <Router>
       <Routes>
         <Route path='/' element={
@@ -44,6 +50,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    </AuthContext.Provider>
   );
 }
 

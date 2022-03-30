@@ -1,19 +1,37 @@
-import { useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { SignIn } from "../../services/auth";
+import { useNavigate } from "react-router-dom";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { ACCESS_TOKEN } from "../../config/localStorage";
+import AuthContext from "../../context/AuthContext";
 
 
 const Login = () => {
 
+    const [accessToken, setAccessToken] = useLocalStorage(ACCESS_TOKEN, null);
     const email = useRef(null);
     const password = useRef(null);
+    const navigate = useNavigate();
+    const user = useContext(AuthContext);
+
+    useEffect(() => {
+        if(!!user) navigate("/konfigurasi-kriteria", {replace: true});   
+    }, [user, navigate]);
 
     const onSubmitLogin = async(e) => {
         e.preventDefault();
         console.log(email.current.value, password.current.value);
 
         try {
-            await SignIn(email.current.value, password.current.value);
-            console.log('Login Success!');
+            SignIn(email.current.value, password.current.value)
+                .then((credential) => {
+                    setAccessToken(credential?.user?.accessToken)
+                    console.log('Login Success!');
+                    navigate('/konfigurasi-kriteria', {
+                        replace: true
+                    });
+                })
+                .catch(console.log);
         } catch (error) {
             console.log(error);
         }

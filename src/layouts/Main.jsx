@@ -12,12 +12,12 @@ const MainLayout = ({children}) => {
                     title={`Konfigurasi Kriteria`}
                 />
                 {children}
-                <div className="flex justify-end mr-44 mb-8">
+                {/* <div className="flex justify-end mr-44 mb-8">
                     <NextButton 
                         title={`Next`}
                         url={`/`}
                     />
-                </div>
+                </div> */}
             </div>
         </div>
     );

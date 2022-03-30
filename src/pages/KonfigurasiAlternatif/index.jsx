@@ -1,6 +1,8 @@
 import { useState } from "react";
+import Authorize from "../../components/Authorize";
 import CellInput from "../../components/CellInput";
 import CellList from "../../components/CellList";
+import NextButton from "../../components/NextButton";
 import MainLayout from "../../layouts/Main";
 import { 
     getAllAlternativeUncheck,
@@ -27,6 +29,7 @@ const KonfigurasiAlternatif = () => {
     }
 
     return (
+        <Authorize>
         <MainLayout>
             <div className="flex flex-col px-10 py-8 h-full">
                 <div className="flex flex-row">
@@ -102,7 +105,14 @@ const KonfigurasiAlternatif = () => {
                     </table>
                 </div>
             </div>
+            <div className="flex justify-end mr-44 mb-8">
+                <NextButton 
+                    title={`Next`}
+                    url={`/perhitungan-promethee`}
+                />
+            </div>
         </MainLayout>
+        </Authorize>
     );
 }
  
