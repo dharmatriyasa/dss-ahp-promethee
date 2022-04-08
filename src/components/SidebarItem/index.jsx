@@ -2,7 +2,6 @@ import { IoIosArrowRoundForward } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
 const SidebarItem = (props) => {
-    console.log(props)
     return (
         <li className=''>
             <Link 

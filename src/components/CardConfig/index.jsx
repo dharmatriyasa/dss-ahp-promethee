@@ -1,11 +1,17 @@
-import { useRef } from "react";
+import { useRef, useEffect, useContext } from "react";
+import CriteriaContext from "../../context/CriteriaContext";
+import { addPrometheeCriteria } from "../../services/firestore";
+import { preferensiType } from "../../services/promethee";
 
 const CardConfig = (props) => {
+
+    const {criteriaPromethee, setCriteriaPromethee} = useContext(CriteriaContext)
 
     const kaidah = useRef(null);
     const tipePreferensi = useRef(null);
     const batas1 = useRef(null);
     const batas2 = useRef(null);
+    const dValue = useRef(null);
 
     const onUpdateCriteria = (e) => {
         e.preventDefault();
@@ -14,6 +20,26 @@ const CardConfig = (props) => {
         console.log(tipePreferensi.current.value);
         console.log(batas1.current.value);
         console.log(batas2.current.value);
+        console.log(dValue.current.value);
+
+        const prefTypeVal = preferensiType(parseInt(dValue.current.value), parseInt(batas1.current.value), parseInt(batas2.current.value), tipePreferensi.current.value, kaidah.current.value);
+
+        const prefTypeValObj = {
+            kriteria: `K${props.kriteriaNumber}`,
+            kaidah: kaidah.current.value,
+            tipePreferensi: tipePreferensi.current.value,
+            batas1: batas1.current.value,
+            batas2: batas2.current.value
+        }
+
+        setCriteriaPromethee([
+           ...criteriaPromethee, prefTypeValObj,
+        ]);
+
+        // addPrometheeCriteria(prefTypeValObj);
+
+        console.log(prefTypeVal);
+        console.log(criteriaPromethee);
 
     }
 
@@ -49,7 +75,7 @@ const CardConfig = (props) => {
                         >
                             <option value="Biasa">Biasa</option>
                             <option value="Quasi">Quasi</option>
-                            <option value="Lienar">Lienar</option>
+                            <option value="Linear">Linear</option>
                             <option value="Level">Level</option>
                             <option value="Area">Area</option>
                             <option value="Gaussian">Gaussian</option>
@@ -59,6 +85,14 @@ const CardConfig = (props) => {
                             type="number" 
                             placeholder="Tipe Preferensi"
                         /> */}
+                    </div>
+                    <div className="mx-4 my-2">
+                        <input
+                            ref={dValue}
+                            className="bg-white w-20 text-center" 
+                            type="number"
+                            placeholder="Nilai" 
+                        />
                     </div>
                 </div>
                 <div className="flex flex-col">

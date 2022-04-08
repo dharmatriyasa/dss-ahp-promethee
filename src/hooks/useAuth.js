@@ -17,7 +17,7 @@ const useAuth = () => {
         setUser(user);
         setAccessToken(user.accessToken);
     })
-    
+    console.log(user);
     return user;
 }
  

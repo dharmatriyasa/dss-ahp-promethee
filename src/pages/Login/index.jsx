@@ -1,12 +1,42 @@
-import { useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { SignIn } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { ACCESS_TOKEN } from "../../config/localStorage";
 import AuthContext from "../../context/AuthContext";
+// import { getUsers } from "../../services/firestore";
 
 
 const Login = () => {
+
+    // const [tempUsers, setTempUsers] = useState([]);
+
+    // function getAllUsers(){
+    //     getUsers()
+    //     .then(response => {
+    //         const user = response.docs.map(doc => ({
+    //             data: doc.data(),
+    //             id: doc.id,
+    //         }));
+    //         setTempUsers(user);
+    //     })
+    //     .catch(err => console.log(err));
+    // }
+
+    // useEffect(() => {
+    //     getAllUsers();
+    // }, []);
+
+    // useEffect(() => {
+    //     (tempUsers.forEach((data) => {
+    //         console.log(data.data);
+    //     }));
+    // }, [tempUsers]);
+
+
+    // useEffect(() => {
+    //     console.log(tempUsers);
+    // }, [tempUsers])
 
     const [accessToken, setAccessToken] = useLocalStorage(ACCESS_TOKEN, null);
     const email = useRef(null);
@@ -25,7 +55,8 @@ const Login = () => {
         try {
             SignIn(email.current.value, password.current.value)
                 .then((credential) => {
-                    setAccessToken(credential?.user?.accessToken)
+                    setAccessToken(credential?.user?.accessToken);
+                    console.log(credential)
                     console.log('Login Success!');
                     navigate('/konfigurasi-kriteria', {
                         replace: true

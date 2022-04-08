@@ -16,6 +16,7 @@ const CellInput = (props) => {
             [e.target.name]: !isTrue
         });
         setisTrue(!isTrue);
+        console.log(dataCheckbox);
     }
 
     useEffect(() => {

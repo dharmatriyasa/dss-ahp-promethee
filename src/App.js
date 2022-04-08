@@ -15,6 +15,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 function App() {
 
   const user = useAuth();
+  // console.log(user);
 
   return (
     <AuthContext.Provider value={user}>
