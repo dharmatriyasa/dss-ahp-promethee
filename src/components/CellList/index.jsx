@@ -1,42 +1,40 @@
 import { useEffect, useState } from "react";
-import { updateActionAlternative } from "../../services/alternative";
+import { updateActionAlternative } from "../../services/firestore";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
  
 const CellList = (props) => {
     const [isTrue, setisTrue] = useState(true);
 
-    const initialDataCheckbox = {
-        id: props.id,
-        statusAlternative: props.statusAlternative,
-    }
-    const [dataCheckbox, setDataCheckbox] =  useState(initialDataCheckbox);
+    // const initialDataCheckbox = {
+    //     id: props.id,
+    //     statusAlternative: props.statusAlternative,
+    // }
+    // const [dataCheckbox, setDataCheckbox] =  useState(initialDataCheckbox);
 
     const handleClick = (e) => {
         e.preventDefault();
 
-        setDataCheckbox({
-            ...dataCheckbox,
-           statusAlternative: !isTrue
-        });
-        setisTrue(!isTrue);
+        updateActionAlternative(props.uid, false)
+            .then(() => console.log('Success'))
+            .catch(err => console.log(err));
     }
 
-    const handleChange = async (e) => {
+    // const handleChange = async (e) => {
+    //     e.preventDefault();
+
         
-        setDataCheckbox({
-            ...dataCheckbox,
-            [e.target.name]: !isTrue
-        });
-        setisTrue(!isTrue);
-    }
+    //     updateActionAlternative(props.uid, false)
+    //         .then(() => console.log('Success'))
+    //         .catch(err => console.log(err));
+    // }
 
-    useEffect(() => {
-        // setTimeout(() => {
-            console.log(dataCheckbox);
-            updateActionAlternative(dataCheckbox);
-        // }, 5000)
-    }, [dataCheckbox])
+    // useEffect(() => {
+    //     // setTimeout(() => {
+    //         console.log(dataCheckbox);
+    //         updateActionAlternative(dataCheckbox);
+    //     // }, 5000)
+    // }, [dataCheckbox])
 
 
     return (
@@ -53,7 +51,7 @@ const CellList = (props) => {
                     <button 
                         name="statusAlternative"
                         type="submit"
-                        onChange={handleChange}
+                        // onChange={handleChange}
                         onClick={handleClick}
                         className="text-red-700 bg-red-300 p-1 rounded-md"
                         

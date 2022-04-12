@@ -1,30 +1,38 @@
 import { useEffect, useState } from "react";
-import { updateActionAlternative } from "../../services/alternative";
+import { updateActionAlternative } from "../../services/firestore";
+// import { updateActionAlternative } from "../../services/alternative";
  
 const CellInput = (props) => {
-    const [isTrue, setisTrue] = useState(false);
+    const [isTrue, setIsTrue] = useState(false);
 
-    const initialDataCheckbox = {
-        id: props.id,
-        statusAlternative: props.statusAlternative,
-    }
-    const [dataCheckbox, setDataCheckbox] =  useState(initialDataCheckbox);
+    // console.log(isTrue);
+
+    // const initialDataCheckbox = {
+    //     id: props.id,
+    //     statusAlternative: props.statusAlternative,
+    // }
+    // const [dataCheckbox, setDataCheckbox] =  useState(initialDataCheckbox);
 
     const handleChange = async (e) => {
-        setDataCheckbox({
-            ...dataCheckbox,
-            [e.target.name]: !isTrue
-        });
-        setisTrue(!isTrue);
-        console.log(dataCheckbox);
+        // setDataCheckbox({
+        //     ...dataCheckbox,
+        //     [e.target.name]: !isTrue
+        // });
+        // console.log(isTrue);
+        updateActionAlternative(props.uid, true)
+            .then(() => console.log('Success'))
+            .catch(err => console.log(err));
+
+        // setisTrue(!isTrue);
+        // console.log(dataCheckbox);
     }
 
-    useEffect(() => {
-        // setTimeout(() => {
-            // console.log(dataCheckbox);
-            updateActionAlternative(dataCheckbox);
-        // }, 5000)
-    }, [dataCheckbox])
+    // useEffect(() => {
+    //     // setTimeout(() => {
+    //         // console.log(dataCheckbox);
+    //         updateActionAlternative(dataCheckbox);
+    //     // }, 5000)
+    // }, [dataCheckbox])
 
 
     return (
@@ -42,6 +50,7 @@ const CellInput = (props) => {
                         name="statusAlternative" 
                         type="checkbox" 
                         onChange={handleChange}
+                        // onClick={() => setIsTrue(!isTrue)}
                     />
                 </form>
             </td>

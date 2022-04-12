@@ -3,7 +3,8 @@ import {
     AHP_MATRIX, 
     AHP_NORMALIZATION, 
     AHP_WEIGHT, 
-    PROMETHEE_CRITERIA 
+    PROMETHEE_CRITERIA,
+    ALTERNATIVES 
 } from "../config/collection";
 import { db, fstore } from "../config/firebase";
 
@@ -80,6 +81,31 @@ export const getConsistencyAhp = async() => {
     const consistencyAhp = await db.collection(AHP_CONSISTENCY).orderBy('timestamp', 'decs').limit(1).get();
 
     return consistencyAhp;
+}
+
+export const getAllAlternativesUncheck = async() => {
+    const alternatives = await db.collection(ALTERNATIVES).where('checklist', '==', false).get();
+
+    return alternatives;
+}
+
+export const getAllAlternativesCheck = async() => {
+    const alternatives = await db.collection(ALTERNATIVES).where('checklist', '==', true).get();
+
+    console.log(alternatives);
+
+    return alternatives;
+}
+
+export const updateActionAlternative = async(uid, checklistStatus) => {
+    console.log(uid, checklistStatus);
+    const alternative =  db.collection(ALTERNATIVES).doc(uid);
+
+    const res = await alternative.update({checklist: checklistStatus});
+
+    console.log(( (await alternative.get()).data()));
+
+    // return alternative;
 }
 
 export const addUsers = async(data) => {

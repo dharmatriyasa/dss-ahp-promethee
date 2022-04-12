@@ -72,7 +72,6 @@ const PerhitunganAHP = () => {
         },
     ];
 
-    console.log();
     return (
         <Authorize>
         <MainLayout>
