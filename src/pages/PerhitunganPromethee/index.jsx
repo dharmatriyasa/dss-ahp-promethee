@@ -1,21 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Authorize from "../../components/Authorize";
 import BoxNetflow from "../../components/BoxNetflow";
 import BoxPreferensi from "../../components/BoxPreferensi";
 import NextButton from "../../components/NextButton";
 import MainLayout from "../../layouts/Main";
 import { 
-    getAllPreferensiValue,
-    getAllNetFlow 
-} from "../../services/alternative";
+    getPreferensiValues, 
+    getRanking, 
+} from "../../services/firestore";
 
 const PerhitunganPromethee = () => {
-    
-    const alternativePreferensi = getAllPreferensiValue();
-    const alternativeNetFlow = getAllNetFlow();
 
     const [showPreferensiValue, setShowPreferensiValue] = useState(true);
     const [showNetFlowValue, setShowNetFlowValue] = useState(false);
+    const [isLodaing, setIsLodaing] = useState(true);
+    const [preferenceValues, setPreferenceValues] = useState([]);
+    const [rangking, setRangking] = useState([]);
 
     const showListClick = () => {
         setShowPreferensiValue(true);
@@ -27,10 +27,34 @@ const PerhitunganPromethee = () => {
         setShowNetFlowValue(true);
     }
 
+    useEffect(() => {
+
+        async function fetchData(){
+            const responsePref = await getPreferensiValues();
+            const preferensiValues = responsePref.docs.map((doc) => doc.data());
+
+            const responseRanks = await getRanking();
+            const rankings = responseRanks.docs.map((doc) => doc.data());
+
+            setPreferenceValues(preferensiValues[0].preferensiValues);
+            setRangking(rankings[0].ranking);
+
+            console.log(preferensiValues[0].preferensiValues);
+            console.log(rankings[0].ranking);
+
+            setIsLodaing(false);
+        }
+
+        fetchData();
+        
+    }, [])
+
     return (
         <Authorize>
         <MainLayout>
-            <div className="flex flex-col px-10 py-8 h-full">
+            {!isLodaing ? (
+                <>
+                <div className="flex flex-col px-10 py-8 h-full">
                 <div className="flex flex-row">
                     <div 
                         className="w-5/12 cursor-pointer"
@@ -49,40 +73,48 @@ const PerhitunganPromethee = () => {
                 </div>
                 {showPreferensiValue && (
                 <div className="mt-12 grid grid-cols-2 gap-4">
-                        {alternativePreferensi.map((data, index) => {
+                    {preferenceValues.map((preferenceValue) => {
+                    return(
+                    preferenceValue.preferensiValues.map((data, index) => {
+                        console.log(data);
+                        if(data !== null){
+                            console.log('hehe');
                             return(
                                 <BoxPreferensi
                                     key={index}
-                                    alternative1={data.alternative1}
-                                    alternative2={data.alternative2}
-                                    preferensiValue={data.preferensi}
-                                    K1={data.K1}
-                                    K2={data.K2}
-                                    K3={data.K3}
-                                    K4={data.K4}
-                                    K1Hd={data.K1Hd}
-                                    K2Hd={data.K2Hd}
-                                    K3Hd={data.K3Hd}
-                                    K4Hd={data.K4Hd}
+                                    alternative1={preferenceValue.mainAlternative}
+                                    alternative2={data.alternative}
+                                    preferensiValue={data.preferensiValueIndex}
+                                    K1={data.criteriaValue[0]}
+                                    K2={data.criteriaValue[1]}
+                                    K3={data.criteriaValue[2]}
+                                    K4={data.criteriaValue[3]}
+                                    K1Hd={data.preferensiValue[0]}
+                                    K2Hd={data.preferensiValue[1]}
+                                    K3Hd={data.preferensiValue[2]}
+                                    K4Hd={data.preferensiValue[3]}
                                 />
                             )
-                        })}
+                        }
+                    })
+                    )
+                    })}
                 </div>
                 )}
                 {showNetFlowValue && (
                 <div className="mt-12 grid grid-cols-2 gap-4">
-                        {alternativeNetFlow.map((data, index) => {
-                            return(
-                                <BoxNetflow
-                                    key={index}
-                                    alternative={data.name}
-                                    rank={data.rank}
-                                    leaving={data.leaving}
-                                    entering={data.entering}
-                                    net={data.net}
-                                />
-                            )
-                        })}
+                    {rangking.map((data, index) => {
+                        return(
+                            <BoxNetflow
+                                key={index}
+                                alternative={data.name}
+                                rank={data.ranking}
+                                leaving={data.leavingflow.toFixed(5)}
+                                entering={data.enteringflow.toFixed(5)}
+                                net={data.netflow.toFixed(5)}
+                            />
+                        )
+                    })}
                 </div>
                 )}
             </div>
@@ -92,6 +124,11 @@ const PerhitunganPromethee = () => {
                     url={`/hasil-rekomendasi`}
                 />
             </div>
+            </>
+            ) : (
+                <h1>Loading...</h1>
+            )}
+            
         </MainLayout>
         </Authorize>
     );

@@ -3,7 +3,13 @@ import MatrixCard from "../../components/MatrixCard";
 import { ahpvalue } from "../../data/ahpvalue";
 import NextButton from "../../components/NextButton";
 import Authorize from "../../components/Authorize";
-import { getAhpMatrix, getAhpNorm, getConsistencyAhp, getWeightAhp } from "../../services/firestore";
+import { 
+    getAhpMatrix, 
+    getAhpNorm,
+    getConsistencyAhp, 
+    getWeightAhp,
+    getPrometheeCriteria
+} from "../../services/firestore";
 import { useState, useEffect } from "react";
 
 
@@ -46,6 +52,13 @@ const PerhitunganAHP = () => {
                     setAhpConsistency(data.data().consistency);
                 });
                 setIsLoading(false);
+            })
+            .catch(err => console.log(err));
+        getPrometheeCriteria()
+            .then((res) => {
+                res.forEach((data) => {
+                    console.log(data.data().prometheCriteria);
+                });
             })
             .catch(err => console.log(err));
     }, []);

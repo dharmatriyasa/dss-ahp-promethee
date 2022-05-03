@@ -12,12 +12,27 @@ import {
 import { 
     getAllAlternativesUncheck,
     getAllAlternativesCheck,
+    addPrometheeCriteria,
+    addPreferensiValues,
+    addRanking,
+    getWeightAhp,
+    getPrometheeCriteria
 } from "../../services/firestore";
+
+import { 
+    enteringFlow, 
+    leavingFlow, 
+    netFlow, 
+    prefValues, 
+    ranking 
+} from "../../services/promethee";
 
 const KonfigurasiAlternatif = () => {
 
     const [alternativesUncheck, setAlternativesUncheck] = useState([]);
     const [alternativesCheck1, setAlternativesCheck] = useState([]);
+    const [prometheeCriterias, setPrometheeCriterias] = useState([]);
+    const [weightCriteria, setWeightCriteria] = useState([]);
     // console.log(getAllAlternativeUncheck());
     // console.log(getAllAlternativeCheck());
     const alternativesCheck = getAllAlternativeCheck();
@@ -36,6 +51,23 @@ const KonfigurasiAlternatif = () => {
         setShowCheckAlternative(true);
     }
 
+    const calculatePromethee = () => {
+
+        const prefAltrValues = prefValues(alternativesCheck1, prometheeCriterias, weightCriteria);
+
+        addPreferensiValues(prefAltrValues);
+
+        const leavingFlows = leavingFlow(prefAltrValues);
+        const enteringFlows = enteringFlow(prefAltrValues);
+
+        const netFlows = netFlow(alternativesCheck1, leavingFlows, enteringFlows);
+
+        const rankings = ranking(netFlows);
+
+        addRanking(rankings);
+
+    }
+
     useEffect(() => {
         const temp = [];
         getAllAlternativesUncheck()
@@ -44,6 +76,7 @@ const KonfigurasiAlternatif = () => {
                     temp.push(data.data());
                 });
                 setAlternativesUncheck(temp);
+                // console.log(temp);
             })
             .catch(err => console.log(err));
 
@@ -55,7 +88,30 @@ const KonfigurasiAlternatif = () => {
                 });
                 setAlternativesCheck(temp2);
                 setIsLoading(false);
+                // console.log(temp2);
             })
+            .catch(err => console.log(err));
+        
+        const weightAhp = [];
+        getWeightAhp()
+            .then((docs) => {
+                docs.forEach((doc) => {
+                    weightAhp.push((doc.data().weight))
+                });
+                // console.log(weightAhp[0]);
+                setWeightCriteria(weightAhp[0])
+            })
+        
+        const prometheeCriteria = [];
+        getPrometheeCriteria()
+            .then((docs) => {
+                docs.forEach((doc) => {
+                    prometheeCriteria.push(doc.data().prometheCriteria)
+                });
+                // console.log(prometheeCriteria[0]);
+                setPrometheeCriterias(prometheeCriteria[0])
+            })
+
     }, [setAlternativesUncheck, setAlternativesCheck]);
 
     return (
@@ -137,6 +193,17 @@ const KonfigurasiAlternatif = () => {
                                 </tbody>
                             )}
                         </table>
+                        {showCheckAlternative && (
+                        <div className="w-full flex flex-row justify-end">
+                        <button 
+                            className="flex flex-row mt-24 bg-purple-300 justify-center items-center px-4 py-2"
+                            onClick={calculatePromethee}
+                        >
+                            <h1>Kalkulasi</h1>
+                        </button>
+                        </div>
+                        )}
+                        
                     </div>
                 </div>
                 <div className="flex justify-end mr-44 mb-8">

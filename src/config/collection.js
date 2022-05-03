@@ -4,3 +4,5 @@ export const AHP_NORMALIZATION = 'ahp_normalization';
 export const AHP_WEIGHT = 'ahp_weight';
 export const PROMETHEE_CRITERIA = 'promethee_criteria';
 export const ALTERNATIVES = 'alternatives';
+export const PREFERENSI_VALUES = 'preferensi_values';
+export const RANKING = 'ranking';

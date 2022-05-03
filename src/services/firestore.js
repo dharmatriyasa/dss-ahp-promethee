@@ -4,7 +4,9 @@ import {
     AHP_NORMALIZATION, 
     AHP_WEIGHT, 
     PROMETHEE_CRITERIA,
-    ALTERNATIVES 
+    ALTERNATIVES, 
+    PREFERENSI_VALUES,
+    RANKING
 } from "../config/collection";
 import { db, fstore } from "../config/firebase";
 
@@ -59,6 +61,27 @@ export const addPrometheeCriteria = async(prometheCriteria) => {
     return newPrometheeCriteria;
 }
 
+export const addPreferensiValues = async(preferensiValues) =>{
+    console.log(preferensiValues);
+    const newPreferensiValues = await db.collection(PREFERENSI_VALUES).add({
+        preferensiValues,
+        timestamp: fstore.FieldValue.serverTimestamp()
+    });
+
+    console.log(newPreferensiValues);
+
+    return newPreferensiValues;
+}
+
+export const addRanking = async(ranking) => {
+    const newRanking = await db.collection(RANKING).add({
+        ranking,
+        timestamp: fstore.FieldValue.serverTimestamp()
+    });
+
+    return newRanking;
+}
+
 export const getAhpMatrix = async() =>{
     const ahpMatrix = await db.collection(AHP_MATRIX).orderBy('timestamp', 'desc').limit(1).get();
 
@@ -77,10 +100,22 @@ export const getWeightAhp = async() => {
     return weightAhp;
 }
 
+export const getWeightCriteria = async() => {
+    const weightAhp = await db.collection(AHP_WEIGHT).orderBy('timestamp', 'decs').limit(1).get();
+
+    return weightAhp;
+}
+
 export const getConsistencyAhp = async() => {
     const consistencyAhp = await db.collection(AHP_CONSISTENCY).orderBy('timestamp', 'decs').limit(1).get();
 
     return consistencyAhp;
+}
+
+export const getPrometheeCriteria = async() => {
+    const prometheeCriteria = await db.collection(PROMETHEE_CRITERIA).orderBy('timestamp', 'desc').limit(1).get();
+
+    return prometheeCriteria;
 }
 
 export const getAllAlternativesUncheck = async() => {
@@ -95,6 +130,18 @@ export const getAllAlternativesCheck = async() => {
     console.log(alternatives);
 
     return alternatives;
+}
+
+export const getPreferensiValues = async() => {
+    const preferesiValues = await db.collection(PREFERENSI_VALUES).orderBy('timestamp', 'desc').limit(1).get();
+
+    return preferesiValues;
+}
+
+export const getRanking = async() => {
+    const rankings = await db.collection(RANKING).orderBy('timestamp', 'desc').limit(1).get();
+
+    return rankings;
 }
 
 export const updateActionAlternative = async(uid, checklistStatus) => {
