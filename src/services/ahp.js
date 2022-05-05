@@ -138,7 +138,7 @@ export const lambdaMax = (matrixWeight, weight) => {
 
     for(let i = 0; i <columnCount; i++){
         sum += toFixed2(matrixWeight[i]/weight[i]);
-        // console.log(sum);
+        console.log(matrixWeight[i], weight[i]);
     }
 
     return toFixed2(sum/columnCount);

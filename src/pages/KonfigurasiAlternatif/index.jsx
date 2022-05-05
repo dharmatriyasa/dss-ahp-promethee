@@ -2,17 +2,13 @@ import { useEffect, useState } from "react";
 import Authorize from "../../components/Authorize";
 import CellInput from "../../components/CellInput";
 import CellList from "../../components/CellList";
+import Loader from "../../components/Loader";
 import NextButton from "../../components/NextButton";
 import MainLayout from "../../layouts/Main";
-import { 
-    getAllAlternativeUncheck,
-    getAllAlternativeCheck 
-} from "../../services/alternative";
 
 import { 
     getAllAlternativesUncheck,
     getAllAlternativesCheck,
-    addPrometheeCriteria,
     addPreferensiValues,
     addRanking,
     getWeightAhp,
@@ -33,9 +29,6 @@ const KonfigurasiAlternatif = () => {
     const [alternativesCheck1, setAlternativesCheck] = useState([]);
     const [prometheeCriterias, setPrometheeCriterias] = useState([]);
     const [weightCriteria, setWeightCriteria] = useState([]);
-    // console.log(getAllAlternativeUncheck());
-    // console.log(getAllAlternativeCheck());
-    const alternativesCheck = getAllAlternativeCheck();
 
     const [isLoading, setIsLoading] = useState(true);
     const [showListAlternative, setShowListAlternative] = useState(true);
@@ -116,10 +109,9 @@ const KonfigurasiAlternatif = () => {
 
     return (
         <Authorize>
+        {!isLoading ? (
         <MainLayout>
-            {!isLoading ? (
-                <>
-                <div className="flex flex-col px-10 py-8 h-full">
+            <div className="flex flex-col px-10 py-8 h-full">
                     <div className="flex flex-row">
                         <div 
                             className="w-5/12 cursor-pointer"
@@ -205,18 +197,17 @@ const KonfigurasiAlternatif = () => {
                         )}
                         
                     </div>
-                </div>
-                <div className="flex justify-end mr-44 mb-8">
+            </div>
+            <div className="flex justify-end mr-44 mb-8">
                     <NextButton 
                         title={`Next`}
                         url={`/perhitungan-promethee`}
                     />
-                </div>
-                </>
-            ) : (
-                <h1>Loading</h1>
-            )}
+            </div>
         </MainLayout>
+        ) : (
+            <Loader />
+        )}
         </Authorize>
     );
 }

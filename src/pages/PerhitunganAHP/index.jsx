@@ -1,6 +1,5 @@
 import MainLayout from "../../layouts/Main";
 import MatrixCard from "../../components/MatrixCard";
-import { ahpvalue } from "../../data/ahpvalue";
 import NextButton from "../../components/NextButton";
 import Authorize from "../../components/Authorize";
 import { 
@@ -11,6 +10,7 @@ import {
     getPrometheeCriteria
 } from "../../services/firestore";
 import { useState, useEffect } from "react";
+import Loader from "../../components/Loader";
 
 
 const PerhitunganAHP = () => {
@@ -43,6 +43,7 @@ const PerhitunganAHP = () => {
                 res.forEach((data) => {
                     setAhpWeight(data.data().weight);
                 });
+                // console.log(data.data().weight);
             })
             .catch(err => console.log(err));
         
@@ -63,33 +64,10 @@ const PerhitunganAHP = () => {
             .catch(err => console.log(err));
     }, []);
 
-
-
-    const bobotKriteria = [1,2,3,4];
-    const konsistensi = [
-        {
-            field: 'RI',
-            value: 3
-        },
-        {
-            field: 'CI',
-            value: 4
-        },
-        {
-            field: 'CR',
-            value: 2
-        },
-        {
-            field: 'Konsisten',
-            value: 'Konsisten'
-        },
-    ];
-
     return (
         <Authorize>
+        {!isLoading ? (
         <MainLayout>
-            {!isLoading ? (
-            <>
             <div className="flex flex-col px-10 py-8 h-full">
                 <div className="flex flex-row mx-4 w-6/12">
                     <div className="mx-20">
@@ -184,11 +162,10 @@ const PerhitunganAHP = () => {
                     url={`/konfigurasi-alternatif`}
                 />
             </div>
-            </>
-            ) : (
-                <h1>Loading</h1>
-            )}
         </MainLayout>
+        ) : (
+            <Loader />
+        )}
         </Authorize>
     );
 }

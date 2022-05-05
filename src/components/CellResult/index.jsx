@@ -7,8 +7,8 @@ const CellResult = (props) => {
             <td>{props.skor}</td>
             <td>
             <div className="mx-2">
-                <div className={`text-center text-white py-1 ${props.result ? "bg-green-500" : "bg-red-500"}`}>
-                    {props.result ? "Prioritas" : "Menunggu"}
+                <div className={`text-center text-white py-1 ${props.index <= props.priorityCount ? "bg-green-500" : "bg-red-500"}`}>
+                    {props.index <= props.priorityCount ? "Prioritas" : "Menunggu"}
                 </div>
             </div>
             </td>

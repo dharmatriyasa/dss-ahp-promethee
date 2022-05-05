@@ -28,19 +28,6 @@ const KonfigurasiKriteria = () => {
     const inputValues1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
     const inputValues2 = ['1/2', '1/3', '1/4', '1/5', '1/6', '1/7', '1/8', '1/9'];
 
-    // useEffect(() => {
-    //     // criteriaInputRow1.current.map((data, index) => {
-    //     //     console.log(data.value, index);
-    //     // })
-    // }, [
-    //     matrixValue12, 
-    //     matrixValue13, 
-    //     matrixValue14,
-    //     matrixValue23,
-    //     matrixValue24,
-    //     matrixValue34
-    // ]);
-
     async function addMatrixFbase(matrix){
         const temp = await addMatrixAhp(matrix)
         console.log(temp)
@@ -50,8 +37,7 @@ const KonfigurasiKriteria = () => {
         e.preventDefault();
 
         
-        criteriaInputRow1.current.map((data, index) => {
-            // console.log(data.value, index);
+        criteriaInputRow1.current.map((data) => {
             matrixCriteria.push(data.value);
         });
 

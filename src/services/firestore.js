@@ -95,19 +95,19 @@ export const getAhpNorm = async() =>{
 }
 
 export const getWeightAhp = async() => {
-    const weightAhp = await db.collection(AHP_WEIGHT).orderBy('timestamp', 'decs').limit(1).get();
+    const weightAhp = await db.collection(AHP_WEIGHT).orderBy('timestamp', 'desc').limit(1).get();
 
     return weightAhp;
 }
 
 export const getWeightCriteria = async() => {
-    const weightAhp = await db.collection(AHP_WEIGHT).orderBy('timestamp', 'decs').limit(1).get();
+    const weightAhp = await db.collection(AHP_WEIGHT).orderBy('timestamp', 'desc').limit(1).get();
 
     return weightAhp;
 }
 
 export const getConsistencyAhp = async() => {
-    const consistencyAhp = await db.collection(AHP_CONSISTENCY).orderBy('timestamp', 'decs').limit(1).get();
+    const consistencyAhp = await db.collection(AHP_CONSISTENCY).orderBy('timestamp', 'desc').limit(1).get();
 
     return consistencyAhp;
 }

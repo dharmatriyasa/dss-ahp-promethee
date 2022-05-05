@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Authorize from "../../components/Authorize";
 import BoxNetflow from "../../components/BoxNetflow";
 import BoxPreferensi from "../../components/BoxPreferensi";
+import Loader from "../../components/Loader";
 import NextButton from "../../components/NextButton";
 import MainLayout from "../../layouts/Main";
 import { 
@@ -51,10 +52,9 @@ const PerhitunganPromethee = () => {
 
     return (
         <Authorize>
+        {!isLodaing ? (
         <MainLayout>
-            {!isLodaing ? (
-                <>
-                <div className="flex flex-col px-10 py-8 h-full">
+            <div className="flex flex-col px-10 py-8 h-full">
                 <div className="flex flex-row">
                     <div 
                         className="w-5/12 cursor-pointer"
@@ -124,12 +124,10 @@ const PerhitunganPromethee = () => {
                     url={`/hasil-rekomendasi`}
                 />
             </div>
-            </>
-            ) : (
-                <h1>Loading...</h1>
-            )}
-            
         </MainLayout>
+        ) : (
+            <Loader />
+        )}
         </Authorize>
     );
 }
